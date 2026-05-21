@@ -1,0 +1,37 @@
+@model List<PerdeCim.Models.Perde>
+
+<style>
+    body { background: radial-gradient(circle at top right, #f8fafc, #e2e8f0); font-family: 'Inter', sans-serif; }
+    .perde-card {
+        background: white; border-radius: 20px; padding: 20px; margin-bottom: 15px;
+        display: flex; justify-content: space-between; align-items: center;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05); transition: 0.3s;
+    }
+    .perde-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+    .btn-group-premium .btn { border-radius: 10px; margin-left: 5px; font-weight: 600; font-size: 13px; }
+</style>
+
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">Perde Yönetim Paneli</h2>
+        <a asp-controller="PerdeEkle" asp-action="Index" class="btn btn-primary rounded-pill">+ Yeni Ekle</a>
+    </div>
+
+    @foreach (var p in Model)
+    {
+        <div class="perde-card border">
+            <div>
+                <h5 class="mb-1 fw-bold">@p.PerdeAdi</h5>
+                <span class="text-primary fw-semibold">@p.PerdeFiyati ₺</span> 
+                <small class="text-muted ms-2">| @p.PerdeModeli</small>
+            </div>
+            
+            <div class="btn-group-premium">
+                <a asp-action="Detay" asp-route-id="@p.PerdeId" class="btn btn-outline-dark">🔍 Detay</a>
+                <a asp-action="Guncelle" asp-route-id="@p.PerdeId" class="btn btn-outline-primary">✎ Düzenle</a>
+                <a asp-action="Sil" asp-route-id="@p.PerdeId" class="btn btn-danger" 
+                   onclick="return confirm('Silmek istediğine emin misin?')">✕ Sil</a>
+            </div>
+        </div>
+    }
+</div>

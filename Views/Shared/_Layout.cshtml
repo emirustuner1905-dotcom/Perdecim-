@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PerdeCim | Evinize Şıklık Katın</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+        html, body { margin: 0; padding: 0; min-height: 100vh; }
+        body { font-family: 'Poppins', sans-serif; color: white; background: linear-gradient(135deg, #0f172a, #1e293b, #334155); background-size: 400% 400%; animation: bgChange 20s ease infinite; display: flex; flex-direction: column; }
+      bgChange { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        
+        .navbar { background: rgba(15, 23, 42, 0.85) !important; border-radius: 25px; padding: 10px 30px; border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4); backdrop-filter: blur(15px); margin-top: 15px; position: relative; z-index: 1060 !important; }
+        
+        .dropdown-menu { background: rgba(15, 23, 42, 0.98) !important; border: 1px solid rgba(255,255,255,0.1); border-radius: 15px; backdrop-filter: blur(15px); z-index: 1070 !important; padding: 10px; }
+        .offcanvas { z-index: 1080 !important; }
+        
+        .dropdown-item { color: #cbd5e1 !important; padding: 10px 20px; transition: 0.3s; border-radius: 8px; }
+        .dropdown-item:hover { background: rgba(59, 130, 246, 0.2); color: white !important; }
+        
+        .navbar-logo { height: 60px; width: 60px; object-fit: cover; border-radius: 50%; border: 2px solid #3b82f6; background: white; padding: 2px; }
+        .navbar-brand { display: flex; align-items: center; gap: 12px; font-family: 'Playfair Display', serif; font-weight: bold; color: #f1f5f9 !important; }
+        .navbar-brand span { color: #3b82f6; }
+        .nav-link { color: #cbd5e1 !important; padding: 8px 15px; transition: 0.3s; font-weight: 500; }
+        .nav-link:hover { color: #fff !important; }
+        
+        .auth-group { display: flex; align-items: center; gap: 10px; margin-left: 15px; padding-left: 15px; border-left: 1px solid rgba(255,255,255,0.1); }
+        .btn-login { color: #cbd5e1; text-decoration: none; font-size: 0.9rem; font-weight: 600; transition: 0.3s; }
+        .btn-register { background: #3b82f6; color: white !important; padding: 8px 18px; border-radius: 12px; font-size: 0.9rem; font-weight: 600; text-decoration: none; transition: 0.3s; }
+        .btn-cart { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #3b82f6 !important; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: 12px; transition: 0.3s; cursor: pointer; }
+        .btn-cart:hover { background: #3b82f6; color: white !important; }
+        
+        footer { margin-top: auto; padding: 40px 0; text-align: center; color: #94a3b8; border-top: 1px solid rgba(255,255,255,0.1); position: relative; z-index: 10; }
+
+        /* --- YENİ EKLENEN YAN KUTUCUKLARIN CSS KODLARI --- */
+        .side-boxes-left, .side-boxes-right {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Kutuların kendi arasındaki boşluk */
+            z-index: 999;
+        }
+        .side-boxes-left { left: 25px; }   /* Soldan bırakılacak boşluk */
+        .side-boxes-right { right: 25px; } /* Sağdan bırakılacak boşluk */
+
+        .side-box {
+            width: 80px;  /* Kutucuk genişliği */
+            height: 80px; /* Kutucuk yüksekliği */
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+        
+        /* Fareyle üzerine gelindiğinde efekt */
+        .side-box:hover {
+            transform: scale(1.1);
+            border-color: #3b82f6;
+            background: rgba(255, 255, 255, 0.18);
+        }
+
+        /* Kutunun içindeki fotoğrafların tam sığması için */
+        .side-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Ekran küçüldüğünde kutuları gizle */
+        (max-width: 1200px) {
+            .side-boxes-left, .side-boxes-right { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="side-boxes-left">
+        <div class="side-box"><img src="~/img/sol1.png" alt="Sol 1"></div>
+        <div class="side-box"><img src="~/img/sol1.png" alt="Sol 2"></div>
+        <div class="side-box"><img src="~/img/sol-3.png" alt="Sol 3"></div>
+        <div class="side-box"><img src="~/img/sol-4.png" alt="Sol 4"></div>
+    </div>
+
+    <div class="side-boxes-right">
+        <div class="side-box"><img src="~/img/sag-1.png" alt="Sağ 1"></div>
+        <div class="side-box"><img src="~/img/sag-2.png" alt="Sağ 2"></div>
+        <div class="side-box"><img src="~/img/sag-3.png" alt="Sağ 3"></div>
+        <div class="side-box"><img src="~/img/sag-4.png" alt="Sağ 4"></div>
+    </div>
+
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <img src="~/img/perdecim.png" alt="Logo" class="navbar-logo">
+                <div>Perde<span>Cim</span></div>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#perdeNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="perdeNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="/">🏠 Anasayfa</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Modeller">✨ Modeller</a></li>
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="yardimDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            ❓ Yardım
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="yardimDropdown">
+                            <li><a class="dropdown-item" asp-controller="Home" asp-action="SSS"><i class="bi bi-question-circle me-2"></i> SSS</a></li>
+                            <li><a class="dropdown-item" asp-controller="Home" asp-action="KargoTakip"><i class="bi bi-truck me-2"></i> Kargo Takibi</a></li>
+                            <li><a class="dropdown-item" asp-controller="Home" asp-action="OlcuAlma"><i class="bi bi-rulers me-2"></i> Nasıl Ölçü Alınır?</a></li>
+                            <li><a class="dropdown-item" asp-controller="Home" asp-action="Iletisim"><i class="bi bi-headset me-2"></i> Canlı Destek</a></li>
+                            <li><hr class="dropdown-divider" style="border-color: rgba(255,255,255,0.1);"></li>
+                            <li><a class="dropdown-item" asp-controller="Home" asp-action="Garanti"><i class="bi bi-shield-check me-2"></i> 2 Yıl Garanti</a></li>
+                            <li><a class="dropdown-item" asp-controller="Home" asp-action="OdemeSecenekleri"><i class="bi bi-wallet2 me-2"></i> Ödeme Seçenekleri</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Konum">📍 Konum</a></li>
+                    
+                    <li class="nav-item ms-lg-3">
+                        <a href="#" class="btn-cart" data-bs-toggle="offcanvas" data-bs-target="#sepetMenu" onclick="sepetiYukle()">
+                            <i class="bi bi-cart3"></i>
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <div class="auth-group">
+                            <a asp-controller="Account" asp-action="Login" class="btn-login">Giriş Yap</a>
+                            <a asp-controller="Account" asp-action="Register" class="btn-register">Kayıt Ol</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="mt-5">
+        @RenderBody()
+    </main>
+</div>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="sepetMenu">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" style="color: #0f172a;">Sepetim</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+  </div>
+  <div class="offcanvas-body" id="sepetBody">
+    <p>Sepet yükleniyor...</p>
+  </div>
+</div>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2026 <strong>PerdeCim</strong> - Tüm Hakları Saklıdır.</p>
+    </div>
+</footer>
+
+<script>
+    function sepetiYukle() {
+        fetch('/Home/Sepetim', { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+            .then(response => response.text())
+            .then(data => { document.getElementById('sepetBody').innerHTML = data; });
+    }
+</script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

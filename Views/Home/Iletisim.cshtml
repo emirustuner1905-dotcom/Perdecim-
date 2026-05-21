@@ -1,0 +1,68 @@
+@{
+    ViewData["Title"] = "İletişim";
+    Layout = "_Layout"; 
+}
+
+<style>
+    /* İletişim Sayfası Özel Dark Tasarımı */
+    .contact-section {
+        padding: 60px 0;
+        color: #ffffff;
+    }
+    
+    .contact-card {
+        background: rgba(30, 41, 59, 0.9); /* Koyu arka plan */
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 24px;
+        padding: 40px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        transition: 0.3s;
+    }
+
+    .contact-card h2, .contact-card h5, .contact-card p {
+        color: #ffffff !important; /* Tüm metinleri beyaz yap */
+    }
+
+    .icon-box {
+        width: 60px;
+        height: 60px;
+        background: rgba(59, 130, 246, 0.1);
+        color: #3b82f6;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+        margin: 0 auto 15px auto;
+    }
+</style>
+
+<div class="contact-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="contact-card">
+                    <h2 class="text-center mb-5 fw-bold">Bize Ulaşın</h2>
+                    
+                    <div class="row text-center g-4">
+                        <div class="col-md-4">
+                            <div class="icon-box"><i class="bi bi-telephone-fill"></i></div>
+                            <h5 class="fw-bold">Telefon</h5>
+                            <p>0555 4747 4747</p>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="icon-box"><i class="bi bi-envelope-fill"></i></div>
+                            <h5 class="fw-bold">E-posta</h5>
+                            <p>iletisim@perdecim.com</p>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="icon-box"><i class="bi bi-geo-alt-fill"></i></div>
+                            <h5 class="fw-bold">Adres</h5>
+                            <p>Mardin, Artuklu / Türkiye</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

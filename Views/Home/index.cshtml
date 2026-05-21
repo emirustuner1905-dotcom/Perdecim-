@@ -1,0 +1,95 @@
+@model List<Perde>
+
+<style>
+    body {
+        background: radial-gradient(circle at top right, #f8fafc, #e2e8f0);
+        font-family: 'Inter', 'Segoe UI', sans-serif;
+        color: #1e293b;
+        min-height: 100vh;
+    }
+
+    .carousel {
+        margin-bottom: 50px;
+        border-radius: 30px;
+        overflow: hidden;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(255,255,255,0.8);
+    }
+    .carousel-item img { height: 450px; object-fit: cover; transition: transform 1.2s ease; }
+    .carousel-item:after {
+        content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        background: linear-gradient(to bottom, transparent 50%, rgba(15, 23, 42, 0.4));
+    }
+
+    .card {
+        background: rgba(255, 255, 255, 0.8) !important;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-radius: 24px;
+        overflow: hidden;
+        margin-bottom: 35px;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    }
+    .card:hover { transform: translateY(-12px); box-shadow: 0 25px 50px rgba(0, 0, 0, 0.08); background: rgba(255, 255, 255, 1) !important; }
+    .card-img-top { height: 280px; object-fit: cover; transition: 0.6s ease; }
+    .card:hover .card-img-top { transform: scale(1.05); }
+    .card-body { padding: 25px; }
+    .card-title h3 { font-size: 1.2rem; font-weight: 700; color: #0f172a; margin-bottom: 8px; }
+    .price-tag { font-size: 1.1rem; font-weight: 600; color: #334155; margin-bottom: 15px; display: block; }
+    
+    .btn-details { background: #0f172a; color: #fff; border: none; padding: 10px 20px; border-radius: 12px; font-weight: 600; font-size: 0.9rem; transition: 0.3s; text-decoration: none; flex: 1; text-align: center; }
+    .btn-details:hover { background: #334155; color: white; }
+    .btn-sample { background: transparent; color: #64748b; border: 1px solid #e2e8f0; padding: 10px 20px; border-radius: 12px; font-weight: 500; font-size: 0.9rem; transition: 0.3s; text-decoration: none; flex: 1; text-align: center; }
+    .btn-sample:hover { background: #f8fafc; border-color: #cbd5e1; color: #1e293b; }
+</style>
+
+<div id="perdeSlider" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active"> <img src="~/img/Slaydır1.jpg" class="d-block w-100" alt="Slider"> </div>
+        <div class="carousel-item"> <img src="~/img/perdecim.png" class="d-block w-100" alt="Slider"> </div>
+        <div class="carousel-item"> <img src="~/img/slaydır5.png" class="d-block w-100" alt="Slider"> </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        @foreach(Perde p in Model)
+        {
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card">
+                    <img src="~/img/@p.PerdeGorsel" class="card-img-top" alt="@p.PerdeAdi" />
+                    <div class="card-body">
+                        <div class="card-title"><h3>@p.PerdeAdi</h3></div>
+                        <span class="price-tag">@p.PerdeFiyati ₺ <small>/ m²</small></span>
+                        
+                        <div class="d-flex gap-2 mb-2">
+                            <a asp-controller="Home" asp-action="PerdeDetay" asp-route-id="@p.PerdeId" class="btn-details">Detayları Gör</a>
+                            <a asp-controller="Home" asp-action="NumuneIste" asp-route-id="@p.PerdeId" class="btn-sample">Numune İste</a>
+                        </div>
+
+                        <a href="javascript:void(0)" 
+                           onclick="sepeteEkleVeAc(@p.PerdeId)" 
+                           class="btn w-100" 
+                           style="background: #3b82f6; color: white; border-radius: 12px; font-weight: 600; padding: 10px; transition: 0.3s;">
+                           <i class="bi bi-cart-plus"></i> Sepete Ekle
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<script>
+    function sepeteEkleVeAc(perdeId) {
+        fetch('/Home/SepeteEkle?id=' + perdeId)
+            .then(() => {
+                // Layout'taki sepet menüsünü otomatik aç
+                var offcanvas = new bootstrap.Offcanvas(document.getElementById('sepetMenu'));
+                offcanvas.show();
+                // Sepet içeriğini güncelle
+                sepetiYukle();
+            });
+    }
+</script>

@@ -1,0 +1,76 @@
+@model List<Perde>
+@{
+    ViewData["Title"] = "Perde Modellerimiz";
+}
+
+<style>
+    /* Sayfa Başlığı - Siyah/Koyu Tema ile Uyumlu */
+    .header-section { text-align: center; margin: 50px 0; color: #ffffff; }
+    .header-section h1 { font-size: 3rem; font-weight: 700; }
+    .header-section p { color: #ffffff; }
+    
+    /* Filtreleme */
+    .filter-bar { display: flex; justify-content: center; gap: 15px; margin-bottom: 40px; }
+    .filter-btn { 
+        background: #f1f5f9; border: 1px solid #e2e8f0; color: #475569; 
+        padding: 10px 25px; border-radius: 50px; cursor: pointer; transition: 0.3s; font-weight: 600;
+    }
+    .filter-btn:hover, .filter-btn.active { background: #0f172a; color: white; border-color: #0f172a; }
+
+    /* Kart Tasarımı */
+    .card {
+        background: #ffffff !important;
+        border: 1px solid #e2e8f0 !important;
+        border-radius: 20px;
+        transition: 0.4s;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+    .card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+    .card-title { color: #0f172a; font-weight: 700; }
+    .card-text { color: #64748b; }
+    
+    /* Butonlar */
+    .btn-incele { background: #0f172a; color: white; border-radius: 12px; }
+    .btn-incele:hover { background: #3b82f6; color: white; }
+    .btn-numune { background: transparent; border: 1px solid #e2e8f0; color: #475569; border-radius: 12px; }
+    .btn-sepet { background: #3b82f6; color: white; border-radius: 12px; margin-top: 10px; width: 100%; }
+    .btn-sepet:hover { background: #2563eb; color: white; }
+</style>
+
+<div class="container">
+    <div class="header-section">
+        <h1>Koleksiyonlarımız</h1>
+        <p>Eviniz için en seçkin ve modern perde modellerini keşfedin.</p>
+    </div>
+
+    <div class="filter-bar">
+        <button class="filter-btn active">Tümü</button>
+        <button class="filter-btn">Modern</button>
+        <button class="filter-btn">Klasik</button>
+        <button class="filter-btn">Stor</button>
+    </div>
+
+    <div class="row">
+        @foreach (var p in Model)
+        {
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100">
+                    <img src="~/img/@p.PerdeGorsel" class="card-img-top" style="height: 250px; object-fit: cover; border-radius: 20px 20px 0 0;" />
+                    <div class="card-body p-4">
+                        <h4 class="card-title">@p.PerdeAdi</h4>
+                        <p class="card-text mb-3">@p.PerdeFiyati ₺ / m²</p>
+                        
+                        <div class="d-flex gap-2">
+                            <a asp-action="PerdeDetay" asp-route-id="@p.PerdeId" class="btn btn-incele flex-fill">İncele</a>
+                            <a asp-action="NumuneIste" asp-route-id="@p.PerdeId" class="btn btn-numune flex-fill">Numune İste</a>
+                        </div>
+                        
+                        <a asp-action="SepeteEkle" asp-route-id="@p.PerdeId" class="btn btn-sepet">
+                            <i class="bi bi-cart-plus"></i> Sepete Ekle
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

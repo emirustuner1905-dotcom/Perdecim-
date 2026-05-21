@@ -1,0 +1,53 @@
+@model List<Perde>
+
+<div class="container py-5">
+    <h2 class="mb-4 text-white"><i class="bi bi-cart3"></i> Sepetim</h2>
+    
+    @if (Model.Any())
+    {
+        <div class="row">
+            @foreach (var p in Model)
+            {
+                <div class="col-md-4 mb-4" id="perde-@p.PerdeId">
+                    <div class="card h-100 p-3" style="background: rgba(255,255,255,0.05); border-radius: 20px; border: 1px solid #3b82f6;">
+                        <img src="~/img/@p.PerdeGorsel" class="card-img-top rounded-3 mb-3" style="height: 200px; object-fit: cover;">
+                        <h5 class="text-white">@p.PerdeAdi</h5>
+                        <p class="text-primary fw-bold">@p.PerdeFiyati ₺</p>
+                        
+                        <button onclick="sepettenSil(@p.PerdeId)" class="btn btn-outline-danger w-100 rounded-pill">
+                            <i class="bi bi-trash"></i> Sepetten Kaldır
+                        </button>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="mt-4 p-4 rounded-4" style="background: rgba(255,255,255,0.1);">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="text-white">Genel Toplam: @Model.Sum(x => x.PerdeFiyati) ₺</h4>
+                <a asp-controller="Home" asp-action="OdemeSecenekleri" class="btn btn-primary px-5 py-3 rounded-pill fw-bold">
+                    <i class="bi bi-credit-card-2-front"></i> Ödemeye Geç
+                </a>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="text-center py-5">
+            <h4 class="text-white-50">Sepetiniz şu an boş.</h4>
+            <a asp-action="Modeller" class="btn btn-outline-primary mt-3">Alışverişe Başla</a>
+        </div>
+    }
+</div>
+
+<script>
+    function sepettenSil(id) {
+        fetch('/Home/SepettenSil?id=' + id)
+            .then(() => {
+                // DOM'dan kartı hemen kaldır
+                document.getElementById('perde-' + id).remove();
+                // Opsiyonel: Eğer sepet boşaldıysa sayfayı yenile
+                window.location.reload(); 
+            });
+    }
+</script>

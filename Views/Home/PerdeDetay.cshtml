@@ -1,0 +1,101 @@
+@model PerdeCim.Models.Perde
+
+@{
+    ViewData["Title"] = Model.PerdeAdi;
+    Layout = null;
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+<style>
+    :root { --primary: #3b82f6; --dark: #0f172a; }
+    body { background: #f1f5f9; font-family: 'Poppins', sans-serif; margin: 0; }
+    .page-wrapper { display: flex; min-height: 100vh; }
+
+    /* Modern Sidebar */
+    .sidebar { 
+        width: 280px; background: white; padding: 40px 25px; border-right: 1px solid #e2e8f0; 
+        position: fixed; height: 100vh; display: flex; flex-direction: column; 
+    }
+    .brand-logo { font-size: 1.5rem; font-weight: 800; color: var(--dark); margin-bottom: 50px; text-decoration: none; }
+    .nav-links a { 
+        display: flex; align-items: center; gap: 15px; color: #64748b; text-decoration: none; 
+        padding: 15px; border-radius: 12px; margin-bottom: 10px; transition: 0.3s; font-weight: 500;
+    }
+    .nav-links a:hover { background: #eff6ff; color: var(--primary); }
+
+    /* Ana İçerik */
+    .perde-container { flex: 1; margin-left: 280px; padding: 60px; display: flex; align-items: center; justify-content: center; }
+    .perde-card { 
+        background: white; border-radius: 40px; padding: 40px; display: flex; gap: 50px; 
+        max-width: 1050px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.1); 
+    }
+    .image-wrapper { position: relative; width: 450px; }
+    .perde-image { width: 100%; height: 500px; border-radius: 30px; object-fit: cover; }
+    
+    .info-section h2 { font-size: 2.8rem; color: var(--dark); margin: 0; }
+    .price { font-size: 1.8rem; font-weight: 700; color: var(--primary); margin: 20px 0; }
+    
+    .btn-action { 
+        padding: 16px 25px; border-radius: 15px; border: none; font-weight: 600; cursor: pointer; transition: 0.3s; 
+        text-decoration: none; display: inline-block; text-align: center;
+    }
+    .btn-buy { background: var(--dark); color: white; flex: 2; }
+    .btn-buy:hover { background: #1e293b; color: white; }
+    .btn-outline { border: 2px solid #e2e8f0; color: #64748b; flex: 1; }
+    .btn-outline:hover { background: #f8fafc; }
+</style>
+
+<div class="page-wrapper">
+    <aside class="sidebar">
+        <a href="/" class="brand-logo">PerdeCim</a>
+        <nav class="nav-links">
+            <a asp-controller="Home" asp-action="Index"><i class="fas fa-home"></i> Anasayfa</a>
+            <a asp-controller="Home" asp-action="Iletisim"><i class="fas fa-envelope"></i> İletişim</a>
+            <a asp-controller="Home" asp-action="Konum"><i class="fas fa-map-marker-alt"></i> Konum</a>
+        </nav>
+        
+        <div style="margin-top: auto;">
+            <a asp-controller="Account" asp-action="Login" class="btn-action" style="background:#ffffff; color:#000000; width:100%;">Giriş Yap</a>
+
+
+            <a asp-controller="Account" asp-action="Register" class="btn-action" style="background:#ffffff; color:#ff0000; width:100%;">Hesap Oluştur</a>
+        </div>
+    </aside>
+
+    <main class="perde-container">
+        <div class="perde-card">
+            <div class="image-wrapper">
+                <img src="/img/@Model.PerdeGorsel" onerror="this.src='https://via.placeholder.com/400x500'" class="perde-image" />
+            </div>
+            
+            <div class="info-section">
+                <span style="color:var(--primary); font-weight: 600;">@Model.PerdeModeli</span>
+                <h2>@Model.PerdeAdi</h2>
+                <div class="price">@Model.PerdeFiyati ₺ <span style="font-size:1rem; color:#94a3b8;">/ m²</span></div>
+                <p style="color:#64748b; line-height: 1.8;">@Model.PerdeAciklama</p>
+                
+                <div style="display: flex; gap: 15px; margin-top: 40px;">
+                    <a href="javascript:void(0)" onclick="sepeteEkleVeAc(@Model.PerdeId)" class="btn-action btn-buy">
+                        <i class="fas fa-shopping-bag"></i> Sepete Ekle
+                    </a>
+                    <a asp-controller="Home" asp-action="NumuneIste" asp-route-id="@Model.PerdeId" class="btn-action btn-outline">Numune İste</a>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function sepeteEkleVeAc(perdeId) {
+        fetch('/Home/SepeteEkle?id=' + perdeId)
+            .then(() => {
+                // Ana sayfadaki (layout) sepet menüsünü tetikleme
+                // Not: Eğer farklı bir penceredeysen bu hata verebilir, 
+                // bu yüzden ana sayfadaki layout yapısının burada da erişilebilir olduğundan emin ol.
+                window.location.href = '/Home/Sepetim'; 
+            });
+    }
+</script>

@@ -1,0 +1,127 @@
+@model PerdeCim.Models.Perde
+
+<style>
+    /* DETAY SAYFASI ÖZEL STİLLERİ */
+    .detail-card {
+        background: rgba(15, 23, 42, 0.8) !important;
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 30px;
+        overflow: hidden;
+        margin-top: 50px;
+        box-shadow: 0 25px 50px rgba(255, 255, 255, 0.3);
+    }
+
+    .breadcrumb-item a {
+        color: #3b82f6 !important;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .product-price {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: #3b82f6;
+        letter-spacing: -1px;
+    }
+
+    .feature-box {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 20px;
+        padding: 15px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        transition: 0.3s;
+    }
+
+    .feature-box:hover {
+        background: rgba(59, 130, 246, 0.1);
+        border-color: rgba(59, 130, 246, 0.3);
+    }
+
+    .btn-back {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: #cbd5e1;
+        padding: 12px 30px;
+        border-radius: 15px;
+        transition: 0.3s;
+        font-weight: 600;
+    }
+
+    .btn-back:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+    }
+
+    .product-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        min-height: 500px;
+        transition: 0.5s;
+    }
+
+    .detail-card:hover .product-image {
+        transform: scale(1.03);
+    }
+</style>
+
+<div class="container py-5">
+    <div class="row detail-card g-0">
+        <!-- GÖRSEL ALANI -->
+        <div class="col-md-6 overflow-hidden">
+            @* DÜZELTME: Görsel yolu ana dizinden (~) başlamalı *@
+            <img src="~/img/@Model.PerdeGorsel" 
+                 class="product-image" 
+                 alt="@Model.PerdeAdi"
+                 onerror="this.src='/img/placeholder.png'">
+        </div>
+
+        <!-- BİLGİ ALANI -->
+        <div class="col-md-6 p-5 d-flex flex-column justify-content-center">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item"><a asp-action="Index">🏠 Ürünler</a></li>
+                    <li class="breadcrumb-item active text-white-50">@Model.PerdeAdi</li>
+                </ol>
+            </nav>
+
+            <h1 class="display-4 fw-bold text-white mb-2">@Model.PerdeAdi</h1>
+            <div class="product-price mb-4">
+                @Model.PerdeFiyati ₺ 
+                <small style="font-size: 1rem; color: #64748b;">/ metrekare</small>
+            </div>
+
+            <div class="mb-4">
+                <h6 class="text-uppercase fw-bold text-primary mb-3">✨ Ürün Açıklaması</h6>
+                <p class="text-white-50" style="line-height: 1.8;">
+                    @Model.PerdeAciklama
+                </p>
+            </div>
+
+            <div class="row g-3 mb-5">
+                <div class="col-6">
+                    <div class="feature-box text-center">
+                        <small class="d-block text-uppercase mb-1">🧶 Kumaş Türü</small>
+                        <span class="fw-bold">@Model.KumasTuru</span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="feature-box text-center">
+                        <small class="d-block text-uppercase mb-1">📦 Stok Durumu</small>
+                        <span class="fw-bold">@Model.StokAdedi Adet</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex gap-3">
+                <a href="javascript:history.back()" class="btn-back text-decoration-none">
+                    <i class="bi bi-arrow-left me-2"></i> Geri Dön
+                </a>
+                <button class="btn btn-primary rounded-4 px-5 fw-bold shadow-lg" style="flex: 1; background: #3b82f6; border: none;">
+                    <i class="bi bi-cart-plus me-2"></i> Sepete Ekle
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

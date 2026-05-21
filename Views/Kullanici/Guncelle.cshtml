@@ -1,0 +1,215 @@
+@{
+    Layout = "_AdminLayout";
+}
+@model User
+
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --primary: #4f46e5;
+        --primary-hover: #4338ca;
+        --bg-body: #f4f7fa;
+        --sidebar-dark: #0f172a;
+        --text-main: #1e293b;
+        --text-muted: #64748b;
+    }
+
+    body {
+        background-color: var(--bg-body);
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        color: var(--text-main);
+    }
+
+    .update-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 60px 20px;
+        min-height: 85vh;
+    }
+
+    .update-card {
+        background: #ffffff;
+        border-radius: 28px;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.05);
+        width: 100%;
+        max-width: 500px;
+        overflow: hidden;
+    }
+
+    .card-accent-border {
+        height: 6px;
+        background: linear-gradient(90deg, var(--primary), #7c3aed);
+    }
+
+    .card-content {
+        padding: 40px;
+    }
+
+    .card-header-section {
+        text-align: center;
+        margin-bottom: 35px;
+    }
+
+    .icon-box {
+        width: 64px;
+        height: 64px;
+        background: #eff6ff;
+        color: var(--primary);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 15px;
+        font-size: 1.5rem;
+    }
+
+    .card-header-section h2 {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: var(--sidebar-dark);
+        letter-spacing: -0.02em;
+        margin: 0;
+    }
+
+    .card-header-section p {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        margin-top: 5px;
+    }
+
+    /* Form Tasarımı */
+    .form-label-premium {
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    .input-premium {
+        height: 54px;
+        background: #f8fafc;
+        border: 2px solid #f1f5f9;
+        border-radius: 16px;
+        padding: 0 1.25rem;
+        font-weight: 500;
+        font-size: 0.95rem;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        width: 100%;
+    }
+
+    .input-premium:focus {
+        background: #fff;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+        outline: none;
+    }
+
+    .input-premium[readonly] {
+        background: #f1f5f9;
+        color: #94a3b8;
+        border-style: dashed;
+        cursor: not-allowed;
+    }
+
+    /* Butonlar */
+    .action-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 40px;
+    }
+
+    .btn-update-p {
+        height: 54px;
+        background: var(--sidebar-dark);
+        color: white;
+        border: none;
+        border-radius: 16px;
+        font-weight: 700;
+        font-size: 1rem;
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .btn-update-p:hover {
+        background: #1e293b;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(15, 23, 42, 0.15);
+    }
+
+    .btn-cancel-p {
+        height: 54px;
+        background: transparent;
+        color: var(--text-muted);
+        border: 2px solid #e2e8f0;
+        border-radius: 16px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        transition: all 0.2s;
+    }
+
+    .btn-cancel-p:hover {
+        background: #f1f5f9;
+        color: var(--sidebar-dark);
+        border-color: #cbd5e1;
+    }
+
+</style>
+
+<div class="update-container">
+    <div class="update-card shadow-lg">
+        <div class="card-accent-border"></div>
+        
+        <div class="card-content">
+            <div class="card-header-section">
+                <div class="icon-box">
+                    <i class="bi bi-person-gear"></i>
+                </div>
+                <h2>Profil Düzenle</h2>
+                <p>Yetkili erişim bilgilerini güncelleyin</p>
+            </div>
+
+            <form asp-action="Guncelleme" method="post">
+                <div class="mb-4">
+                    <label class="form-label-premium">Sistem Kimliği (ID)</label>
+                    <input type="text" asp-for="userId" class="input-premium" readonly />
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label-premium">Kullanıcı Adı</label>
+                    <input type="text" asp-for="userName" class="input-premium" placeholder="Yeni kullanıcı adı..." required />
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label-premium">Erişim Şifresi</label>
+                    <input type="password" asp-for="userPass" class="input-premium" placeholder="Yeni şifre belirleyin..." required />
+                </div>
+
+                <div class="action-stack">
+                    <button type="submit" class="btn-update-p">
+                        <i class="bi bi-check2-circle"></i> Değişiklikleri Uygula
+                    </button>
+                    <a asp-action="Index" class="btn-cancel-p">
+                        Geri Dön
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">

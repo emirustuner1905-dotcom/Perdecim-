@@ -1,0 +1,55 @@
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="text-center text-white fw-bold mb-5">❓ Sıkça Sorulan Sorular</h2>
+            
+            <div class="accordion" id="sssAccordion">
+                
+                <div class="accordion-item" style="background: rgba(255,255,255,0.05); border: 1px solid #3b82f6; border-radius: 15px !important; margin-bottom: 10px; overflow: hidden;">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#soru1" style="background: transparent; color: white;">
+                            Perdelerim ne zaman ulaşır?
+                        </button>
+                    </h2>
+                    <div id="soru1" class="accordion-collapse collapse" data-bs-parent="#sssAccordion">
+                        <div class="accordion-body text-white-50">
+                            Siparişleriniz ortalama 3-5 iş günü içerisinde hazırlanıp kargoya teslim edilmektedir.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item" style="background: rgba(255,255,255,0.05); border: 1px solid #3b82f6; border-radius: 15px !important; margin-bottom: 10px; overflow: hidden;">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#soru2" style="background: transparent; color: white;">
+                            Montaj hizmetiniz var mı?
+                        </button>
+                    </h2>
+                    <div id="soru2" class="accordion-collapse collapse" data-bs-parent="#sssAccordion">
+                        <div class="accordion-body text-white-50">
+                            Perdelerimiz "tak-çalıştır" mantığıyla kolayca monte edilebilir şekilde gönderilir. Montaj kılavuzu kutu içerisinde mevcuttur.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item" style="background: rgba(255,255,255,0.05); border: 1px solid #3b82f6; border-radius: 15px !important; margin-bottom: 10px; overflow: hidden;">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#soru3" style="background: transparent; color: white;">
+                            Ölçü hatası yaparsam ne olur?
+                        </button>
+                    </h2>
+                    <div id="soru3" class="accordion-collapse collapse" data-bs-parent="#sssAccordion">
+                        <div class="accordion-body text-white-50">
+                            Özel üretim olduğu için ölçü hatalarında iade kabul edilmemektedir. Sipariş vermeden önce "Nasıl Ölçü Alınır?" sayfamızı incelemenizi önemle rica ederiz.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="text-center mt-5">
+                <p class="text-white-50">Aradığınız sorunun cevabını bulamadınız mı?</p>
+                <a asp-controller="Home" asp-action="Iletisim" class="btn btn-outline-primary rounded-pill">Canlı Desteğe Bağlan</a>
+            </div>
+        </div>
+    </div>
+</div>

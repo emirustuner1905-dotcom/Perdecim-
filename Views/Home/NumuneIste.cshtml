@@ -1,0 +1,91 @@
+ @{
+    ViewData["Title"] = "Numune Talep Et";
+    Layout = null;
+}
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+    body { 
+        background: #0f172a; 
+        font-family: 'Poppins', sans-serif; 
+        display: flex; 
+        justify-content: center; 
+        align-items: center; 
+        min-height: 100vh; 
+        margin: 0;
+    }
+    .glass-card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 40px;
+        border-radius: 30px;
+        width: 100%;
+        max-width: 450px;
+        color: white;
+        text-align: center;
+        box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+    }
+    .input-group { text-align: left; margin: 25px 0; }
+    label { display: block; margin-bottom: 8px; color: #cbd5e1; font-size: 0.9rem; }
+    input, textarea {
+        width: 100%;
+        padding: 15px;
+        border-radius: 12px;
+        border: 1px solid rgba(255,255,255,0.1);
+        background: rgba(255,255,255,0.03);
+        color: white;
+        box-sizing: border-box;
+        font-family: inherit;
+    }
+    textarea:focus { border-color: #3b82f6; outline: none; }
+    .btn-submit {
+        background: #3b82f6;
+        color: white;
+        padding: 15px;
+        border: none;
+        border-radius: 12px;
+        width: 100%;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    .btn-submit:hover { background: #2563eb; transform: translateY(-2px); }
+    
+    /* Geri Dön Butonu Stili */
+    .btn-back { 
+        color: #64748b; 
+        text-decoration: none; 
+        font-size: 0.9rem; 
+        margin-top: 20px; 
+        display: inline-block;
+        transition: 0.3s;
+    }
+    .btn-back:hover { color: white; }
+</style>
+
+<div class="glass-card">
+    <h2 style="margin-top: 0; font-weight: 600;">Ücretsiz Numune</h2>
+    <p style="color: #94a3b8; margin-bottom: 20px;">Ürünü yakından incelemeniz için adresinize gönderiyoruz.</p>
+
+    <form asp-controller="Home" asp-action="NumuneIste" method="POST">
+        <input type="hidden" name="PerdeId" value="@ViewBag.PerdeId" />
+        
+        <div class="input-group">
+            <label>Teslimat Adresi</label>
+            <textarea name="Adres" rows="4" placeholder="Örn: Mardin, Artuklu, ..." required></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit">Talebi Gönder</button>
+        
+        <a asp-controller="Home" asp-action="Index" class="btn-back">
+            🏠 Anasayfaya Dön
+        </a>
+    </form>
+
+    @if(ViewBag.Mesaj != null) {
+        <div style="margin-top: 20px; padding: 10px; background: rgba(16, 185, 129, 0.1); border-radius: 10px; color: #10b981; font-weight: 600;">
+            @ViewBag.Mesaj
+        </div>
+    }
+</div>
